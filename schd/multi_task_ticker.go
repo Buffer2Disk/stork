@@ -88,12 +88,12 @@ func (mtt *MultiTaskTicker) SetNumWorkers(nWorkers int) *MultiTaskTicker {
 	return mtt
 }
 
-func (mtt *MultiTaskTicker) AddLabel(params ...interface{}) *MultiTaskTicker {
+func (mtt *MultiTaskTicker) AddTask(params ...interface{}) *MultiTaskTicker {
 	mtt.params = append(mtt.params, params...)
 	return mtt
 }
 
-func (mtt *MultiTaskTicker) SetLabel(params ...interface{}) *MultiTaskTicker {
+func (mtt *MultiTaskTicker) SetTasks(params ...interface{}) *MultiTaskTicker {
 	mtt.params = params
 	return mtt
 }

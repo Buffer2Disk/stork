@@ -12,8 +12,8 @@ func TestMultiTaskTicker_Start(t *testing.T) {
 	mtt := NewMultiTaskTicker()
 	mtt.SetNumWorkers(3)
 	mtt.SetPeriod(10 * time.Millisecond)
-	mtt.AddLabel("1", "2")
-	mtt.SetLabel("1", "2")
+	mtt.AddTask("1", "2")
+	mtt.SetTasks("1", "2")
 	st := mtt.Start(context.Background(), func(ctx context.Context, label interface{}) {
 		switch label {
 		case "1":
