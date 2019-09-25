@@ -15,7 +15,7 @@ func TestNewSingleton(t *testing.T) {
 		time.Sleep(10 * time.Millisecond)
 
 		mx.Lock()
-		i += 1
+		i += 1 //
 		mx.Unlock()
 	})
 
@@ -28,5 +28,7 @@ func TestNewSingleton(t *testing.T) {
 	})
 	time.Sleep(15 * time.Millisecond)
 
+	mx.Lock()
 	assert.ExpectEQ(t, 1, i)
+	mx.Unlock()
 }
