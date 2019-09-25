@@ -5,6 +5,8 @@ import (
 	"errors"
 	"sync"
 	"time"
+
+	"github.com/argcv/stork/log"
 )
 
 type runningState struct {
@@ -114,6 +116,7 @@ func (mtt *MultiTaskTicker) Start(ctx context.Context, f MultiTaskTickerFunc) (e
 		for {
 			select {
 			case <-cctx.Done():
+				log.Infof("canceled...")
 				return
 			case <-ticker.C:
 				params := mtt.params
@@ -122,7 +125,9 @@ func (mtt *MultiTaskTicker) Start(ctx context.Context, f MultiTaskTickerFunc) (e
 					param := params[id]
 					if mtt.rs.add(cid) {
 						// start it
+						mtt.wg.Add(1)
 						wkr.Enqueue(func() {
+							defer mtt.wg.Done()
 							f(cctx, param)
 							mtt.rs.remove(cid)
 						})
