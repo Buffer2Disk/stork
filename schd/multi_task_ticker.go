@@ -161,3 +161,14 @@ func (mtt *MultiTaskTicker) Stop(ctx context.Context) (err error) {
 	}
 	return
 }
+
+func (mtt *MultiTaskTicker) StopWait() {
+	mtt.wg.Wait()
+	return
+}
+
+func (mtt *MultiTaskTicker) IsStarted() bool {
+	mtt.m.Lock()
+	defer mtt.m.Unlock()
+	return mtt.isStarted
+}
